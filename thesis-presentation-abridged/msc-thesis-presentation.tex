@@ -36,6 +36,15 @@
 
 \graphicspath{{./figures/}}
 
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+
 \begin{document}
 
 \title[MSc Project Presentation]{Synthesis of Discrete Time Decentralized Control Models of Neuronal Networks}
@@ -92,12 +101,12 @@
             \uncover<8->{{\bf "Probabilistic"\\[5pt]}}
             \uncover<9->{\includegraphics[width=0.5\textwidth]{fig3.png}\\[12pt]}
             \uncover<10->{$P(\text{spike in $[t,t+h)$})=\lambda_tdt+o(h)$}
-        \end{center}
+        \end{center} 
     \end{column}
 \end{columns}
 \vspace{5pt}
 \uncover<11->{Describe {\bf what} the network is doing quite well, but provide little insight as to \textbf{why}.\\[5pt]}
-\uncover<12->{{\bf \underline{Deep learning methods}} can prescribe interpretable functions (i.e., the "{\bf why}"), but...}
+\uncover<12->{{\bf \underline{Deep learning methods}} can prescribe interpretable functions, but...}
 \begin{itemize}
     \uncover<13->{\item lack biological realism}
     \uncover<14->{\item are analytically intractable}
@@ -221,25 +230,25 @@
     \uncover<9->{where the $h^i_j$ are {\bf synaptic kernels}, and $V^i_{t-}:=\lim_{s\nearrow t}V^i_s$. The last term is a post-spike reset.}
 \end{frame}
 
-\begin{frame}{Integrate-and-Fire (IF) Methods ({\it continued})}
-    \begin{center}
-    \begin{tikzpicture}
-        \node [draw, rectangle, minimum width=4cm, inner sep=8pt] (box) {
-        \begin{minipage}{0.95\textwidth}
-            \textbf{Example} [Leaky IF (LIF) Network Model]\\[5pt]
-            \uncover<2->{Only the leak current is retained; neurons are given as coupled Ornstein-Uhlenbeck processes (with resets):}\\
-            \begin{align*}
-                \uncover<3->{dX^i_t&=\left(-g_\ell(V^i_t-E_\ell)+\sum_{j\in\mc{N}}u^i_j s_j(t)\right)dt+\sigma^i(X^i_t)dB^i_t-V^i_{t-}Z^i(dt)}\\
-                \uncover<4->{\frac{s_j(t)}{dt}&=-s_j+\sum_{n:T^j_n\leq t}\delta(t-T^j_n)}
-            \end{align*}           
-        \end{minipage}
-        };
-    \end{tikzpicture}
-    \end{center}
-    \begin{itemize}
-        \uncover<5->{\item While spiking processes $Z^i_t:=Z^i([0,t))$ is made explicit in IF-type models, it is only related to the processes $V_t$ through a sequence of difficult {\bf first-passage-time problems}.}
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Integrate-and-Fire (IF) Methods ({\it continued})}
+%     \begin{center}
+%     \begin{tikzpicture}
+%         \node [draw, rectangle, minimum width=4cm, inner sep=8pt] (box) {
+%         \begin{minipage}{0.95\textwidth}
+%             \textbf{Example} [Leaky IF (LIF) Network Model]\\[5pt]
+%             \uncover<2->{Only the leak current is retained; neurons are given as coupled Ornstein-Uhlenbeck processes (with resets):}\\
+%             \begin{align*}
+%                 \uncover<3->{dX^i_t&=\left(-g_\ell(V^i_t-E_\ell)+\sum_{j\in\mc{N}}u^i_j s_j(t)\right)dt+\sigma^i(X^i_t)dB^i_t-V^i_{t-}Z^i(dt)}\\
+%                 \uncover<4->{\frac{s_j(t)}{dt}&=-s_j+\sum_{n:T^j_n\leq t}\delta(t-T^j_n)}
+%             \end{align*}           
+%         \end{minipage}
+%         };
+%     \end{tikzpicture}
+%     \end{center}
+%     \begin{itemize}
+%         \uncover<5->{\item While spiking processes $Z^i_t:=Z^i([0,t))$ is made explicit in IF-type models, it is only related to the processes $V_t$ through a sequence of difficult {\bf first-passage-time problems}.}
+%     \end{itemize}
+% \end{frame}
 
 \begin{frame}{Probabilistic Models}
     \begin{itemize}
@@ -267,124 +276,18 @@
         \end{minipage}
         };}
     \end{tikzpicture}
-    \begin{tikzpicture}
-        \uncover<6->{\node [draw, rectangle, minimum width=4cm, inner sep=6pt] (box) {
-        \begin{minipage}{0.95\textwidth}
-            \uncover<6->{\textbf{Example} [Generalized Linear Models in Data Analysis (Pillow et al. (2008))]}\\[5pt]
-            \uncover<7->{In discrete time, let $\Phi_t:=(\Phi^d(x_{1:t}))_{d=1}^D$ be $D$ features of some sensory data. An experimentalist seeks $\hat{w}_i\in\mbb{R}^D$ for $i\in\mc{N}$
-            so that $\hat{Z}^i_t\sim\text{Poisson}(\phi(w_i^T\Phi_t))$ resembles recorded spike data $Z^i_t$ from a collection $\mc{N}$ of neurons.}
-        \end{minipage}
-        };}
-    \end{tikzpicture}
     \end{center}
-\uncover<8->{Summary:}
+\uncover<6->{Summary:}
 \begin{itemize}
-    \uncover<9->{\item At a minimum, spiking processes must be mathematically explicit.}
-    \uncover<10->{\item Probabilistic and mechanistic perspectives have complementary strengths for modelling neurodynamics.}
+    \uncover<7->{\item At a minimum, spiking processes must be mathematically explicit.}
+    \uncover<8->{\item Probabilistic and mechanistic perspectives have complementary strengths for modelling neurodynamics.}
 \end{itemize}
-\uncover<11->{How can mechanistic and probabilistic models be unified sensibly?}
+\uncover<9->{How can mechanistic and probabilistic models be unified sensibly?}
 \end{frame}
 
 \section{Point Processes}
 
-\begin{frame}{Point Process Theory}{Br\'emaud (1981), Karr (1991)}
-    \uncover<2->{\begin{block}{\textbf{Definition} [Point Process]}
-        Let $S$ be a locally compact Polish space, and $\mc{M}(S)$ the set of Radon measures on $S$. A random measure $Z:(\Omega,\mc{F},P)\rightarrow \mc{M}(S)$ is a $S$-point process
-        if $Z(A)\in\mbb{Z}_+$ for all relatively compact $A\in\mc{B}(S)$ and $Z(S)=\infty$ $P$-a.s. $Z$ is called {\bf regular} if $Z(\{x\})\leq 1$ for $x\in S$.
-    \end{block}}
-    \uncover<3->{On $(\mbb{R}_+,\mc{B}(\mbb{R}_+))$, $Z$ can be represented by a sequence $\{T_k\}_{k\geq 0}$ as $Z=\sum_{k\geq 1}\delta_{T_k}$, where}
-    \begin{align*}
-        \uncover<4->{T_0=0,\quad T_{k}=\inf(t\geq 0:Z_t:=Z([0,t])=k),\quad k\geq 1.}
-    \end{align*}
-    \vspace{-0.5cm}
-    \uncover<5->{\begin{block}{\textbf{Definition} [Stochastic Intensity Process]}
-        A nonnegative, $\mc{F}_t$-predictable process $\lambda_t$ with $\int_0^t\lambda_sds<\infty$ a.s. for any $t\geq 0$ is the stochastic intensity of a point process $Z$ on $\mbb{R}_+$ iff
-        for any $\mc{F}_t$-predictable $C_t$:
-        \begin{align*}
-            \uncover<6->{\E\left(\int_0^\infty C_sZ(ds)\right)=\E\left(\int_0^\infty C_s\lambda_sds\right).}
-        \end{align*}
-    \end{block}}
-    \uncover<7->{Note: integration here is in the Riemann-Stieltjes sense: $\int_0^t C_sZ(ds)=\sum_{k\geq 1}C_{T_k}\1{T_k\leq t}$.}
-\end{frame}
-
-\begin{frame}{Point Process Theory ({\it continued})}{Br\'emaud (1981), Karr (1991)}
-    \uncover<+->{\begin{alertblock}{{\bf Theorem 1} [Br\'emaud (1981)]}
-        If a point process $Z_t$ admits $\mc{F}_t$-intensity $\lambda_t$, then $Z_t$ is locally finite and $Z_t-\int_0^t\lambda_sds$ is a $\mc{F}_t$-local martingale.
-    \end{alertblock}}
-    \uncover<+->{Probabilistic neuron models correspond to this abstract notion of stochastic intensity. Let $\{S_n\}_{n\geq 1}$ be a localizing sequence, and $h>0$:}
-    \begin{align*}
-       \uncover<+->{\lim_{n\rightarrow\infty}\E\left(\int_{t\wedge S_n}^{t+h\wedge S_n}Z(ds)\bigg|\mc{F}_t\right)&=\lim_{n\rightarrow\infty}\E\left(\int_{t\wedge S_n}^{t+h\wedge S_n}\lambda_sds\bigg|\mc{F}_t\right)}\\
-       \uncover<+->{&\Rightarrow\quad\E\left(Z_{t+h}-Z_t|\mc{F}_t\right)=\E\left(\int_t^{t+h}\lambda_sds\bigg|\mc{F}_t\right)}
-    \end{align*}
-    \uncover<+->{whereby the dominated convergence and Lebesgue differentiation theorems:} 
-    \begin{align*}
-        \uncover<+->{\lim_{h\rightarrow 0^+}\frac{1}{h}\E\left(Z_{t+h}-Z_t|\mc{F}_t\right)=\E\left(\lim_{h\rightarrow 0^+}\frac{1}{h}\int_t^{t+h}\lambda_sds\bigg|\mc{F}_t\right)=\lambda_t.}
-    \end{align*}
-    \uncover<+->{$\lambda_t$ can be viewed as a dynamical law governing a stochastic spiking mechanism, and we wish to prescribe particular $\lambda_t$ to individual neurons.}\\[5pt]
-    \uncover<+->{This is accomplished via {\bf thinning}:}
-    \begin{align*}
-        \uncover<+->{Z(A):=\int_{A}\int_{\mbb{R}_+}\1{y\in[0,\lambda_s]}\Pi(dy\times ds),\quad \Pi\;\text{is standard Poisson on $\mbb{R}_+\times\mbb{R}_+$.}}
-    \end{align*}
-\end{frame}
-
-\begin{frame}{Marked Point Processes}
-    \uncover<+->{\begin{block}{\textbf{Definition} [Marked Point Process (MPP)]}
-        Suppose that to a point process $(T_n)_{n\geq 0}$ is associated a
-        sequence of $(Y,\mc{Y})$-valued random variables $(Y_n)_{n\geq 0}$. Then
-        $\{(T_n,Y_n)\}_{n\geq 0}$ is called a MPP with
-        marks $(Y_n)_{n\geq 0}$ and {\it mark space} $Y$.
-    \end{block}}
-    \uncover<+->{Predictable $\sigma$-algebra: $\mc{P}(\{\mc{F}_t\}_{t\geq 0}):=\sigma((t,\infty)\times A:t\in\mbb{R}_+,\,A\in\mc{F}_t)$.}\\[5pt]
-    \uncover<+->{Marked predictable $\sigma$-algebra: $\tilde{\mc{P}}(\{\mc{F}_t\}_{t\geq 0}):=\mc{P}(\mc{F}_t)\otimes\mc{Y}$.}\\[5pt]
-    \uncover<+->{\textbf{Integration} For any $(t,\omega,y)\mapsto C(t,\omega,y)$ is $\tilde{\mc{P}}(\mc{F}_t)$-measurable and $Z$ a $Y$-MPP, $E\in \mc{Y}$}
-    \begin{align*}
-        \uncover<+->{\int_0^t\int_EC(s,\omega,y)Z(ds\times dy):=\sum_{n\geq 1}C(T_n,\omega,Y_n)\1{T_n\leq t}\1{Y_n\in E}}
-    \end{align*}
-    \vspace{-0.5cm}
-    \uncover<+->{\begin{block}{\textbf{Definition} [Intensity Kernels]}
-        With $Z$ a $Y$-MPP adapted to $\mc{F}_t$, if $\forall A\in\mc{Y}$ the point process $Z_t(\omega,A)$ admits $\mc{F}_t$-predictable intensity $\lambda_t(\omega,A)$,
-        then $Z$ admits the intensity kernel $\lambda_t(\omega, dy)$.
-    \end{block}}
-    \uncover<+->{\begin{alertblock}{\textbf{Theorem 2} [Br\'emaud (1981)]}
-        If $C:\mbb{R}_+\times\Omega\times Y\rightarrow\mbb{R}_+$ is $\tilde{\mc{P}}(\mc{F}_t)$-measurable and $Z$ has intensity kernel $\lambda_t(dy)$, then
-        \begin{align*}
-            \E\left(\int_0^\infty\int_Y C(s,y)Z(ds\times dy)\right)=\E\left(\int_0^\infty\int_Y C(s,y)\lambda_s(dy)ds\right).
-        \end{align*}
-    \end{alertblock}}
-\end{frame}
-
-\begin{frame}{Martingale Characterization of Intensities}
-    \uncover<+->{\begin{alertblock}{\textbf{Theorem 3} [Jacod (1975), Br\'emaud (1981)]}
-        \uncover<+->{If for $t\geq 0$, $\int_0^t\int_Y|C(s,y)|\lambda_s(dy)ds<\infty$ $P$-a.s., then}
-        \begin{align*}
-            \uncover<+->{X_t:=\int_0^t\int_YC(s,y)[Z(ds\times dy)-\lambda_s(dy)ds],\quad t\geq 0}
-        \end{align*}
-        \uncover<+->{is a local martingale. If $\E(\int_0^t\int_Y|C(s,y)|\lambda_s(dy)ds)<\infty$, then $X_t$ is a martingale.}
-    \end{alertblock}}
-    \uncover<+->{The converse is true as well, leading to a martingale characterization of intensity processes:}
-    \uncover<+->{\begin{alertblock}{\textbf{Theorem 4} [{Br\'emaud (1981)}]}
-        Let $Z$ be a point process, $\lambda_t$ a nonnegative process, both adapted to $\mc{F}_t$. If $Z_t-\int_0^t\lambda_sds$ is a local martingale,
-        then $\lambda_t$ is the intensity of $Z$. 
-    \end{alertblock}}
-\end{frame}
-
-\begin{frame}
-    \textbf{Proof}. Apply the monotone class theorem. For a sequence of localizing times $\{S_n\}_{n\geq 1}$,
-    \begin{align*}
-        \uncover<+->{&\E\left(Z_{t\wedge S_n}-\int_0^{t\wedge S_n}\lambda_udu\bigg|\mc{F}_s\right)=Z_{s\wedge S_n}-\int_0^{s\wedge S_n}\lambda_udu}\\
-        \uncover<+->{\Rightarrow\qquad&\E\left(\int_{s\wedge S_n}^{t\wedge S_n}Z(du)\bigg|\mc{F}_s\right)=\E\left(\int_{s\wedge S_n}^{t\wedge S_n}\lambda_u du\bigg|\mc{F}_s\right)}\\
-        \uncover<+->{\Rightarrow\qquad&\E\left(\int_0^{t\wedge S_n}\1{A}\1{u\in(s,\infty)}Z(du)\right)=\E\left(\int_0^{t\wedge S_n}\1{A}\1{u\in(s,\infty)}\lambda_udu\right)}
-    \end{align*}
-    \uncover<+->{which holds for any $A\in\mc{F}_s$. So the class of nonnegative processes for which
-    \[\E\left(\int_0^{t\wedge S_n}C_s Z(ds)\right)=\E\left(\int_0^{t\wedge S_n}C_s\lambda_sds\right)\]
-    holds includes indicators over
-    \[\mc{K}=\{(s,\infty)\times A:0\leq s\leq t,\,A\in\mc{F}_s\}\]}
-    \uncover<+->{generating $\mc{P}(\mc{F}_t)$. This class is closed under addition/scalar multiplication and pointwise bounded limits, whereby successively applying the monotone convergence theorem:}
-    \begin{align*}
-        \uncover<+->{\E\left(\int_0^{t\wedge S_n}C_s Z(ds)\right)=\E\left(\int_0^{t\wedge S_n}C_s\lambda_sds\right)\quad\Rightarrow\quad\E\left(\int_0^\infty C_sZ(ds)\right)=\E\left(\int_0^\infty C_s\lambda_sds\right).\tag*{$\qed$}}
-    \end{align*}
-    \uncover<+->{\textbf{Note}: An extremely similar procedure can be used to prove Theorem 2.}
-\end{frame}
+% ====== RELOCATED POINT PROCESS THEORY TO THE END
 
 \begin{frame}{Spatial Thinning Theorem}
     \uncover<+->{\begin{alertblock}{\textbf{Theorem 5} Spatial Thinning [Chevallier et al., 2015, theorem B.11]}
@@ -520,25 +423,25 @@
     \end{alertblock}}
 \end{frame}
 
-\begin{frame}{Discrete Time Spiking Process}
-    \uncover<+->{Denoting the marks of $\Pi$ by $\{(y_n,k_n)\}{n\geq 1}\subset(0,1)\times\mc{N}$ and $\Pi_t:=\Pi((0,1)\times\mc{N}\times[0,t])$, the synaptic interactions may be expressed}
-    \uncover<+->{\begin{align}
-        \int_{t_m}^{t_{m+1}}\int_{(0,1)\times\mc{N}}\Theta^i(x^h_m,u^i,y)&\Pi(dy\times ds)\notag\\
-        \uncover<+->{&=\1{\Pi_{t_{m+1}}-\Pi_{t_m}\geq 1}\left(\sum_{\ell=\Pi_{t_m}+1}^{\Pi_{t_{m+1}}}\sum_{j\in\mc{N}}u^i_jC^i_j(x^{i,h}_{t_m})\1{y_\ell\leq \phi^j(x^{j,h}_{t_m})}\1{j=k_\ell}\right)\notag{}}\\
-        \uncover<+->{&=:\sum_{j\in\mc{N}}u^i_jC^i_j(x^{i,h}_{t_m})Z^{j,h}_{t_m}\notag{}}
-    \end{align}}
-    \uncover<+->{with the \textbf{discrete time spiking} $Z^{j,h}_{t_m}=\int_{\Delta_t}\int_{(0,1)}\1{y\leq\frac{N}{\lambda}\phi^j(x^{j,h}_{t_m})}\Pi^j(dy\times dt)$, where}
-    \uncover<+->{\begin{align*}
-        \E\left(\int_{t_m}^{t_{m+1}}\int_{(0,1)}\1{y\leq\frac{N}{\lambda}\phi^j(x^{j,h}_{t_m})}\Pi^j(dy\times dt)\right)
-        \uncover<+->{&=\E\left(\int_{t_m}^{t_{m+1}}\int_{(0,1)}\1{y\leq\frac{N}{\lambda}\phi^j(x^{j,h}_{t_m})}\frac{\lambda}{N}dyds\right)}\\
-        \uncover<+->{&=\phi^j(x^{j,h}_{t_m})h}
-    \end{align*}}
-    \uncover<+->{so spiking is conditionally Poisson with rate $\phi^j(x^{j,h}_{t_m})h$.}
-\end{frame}
+% \begin{frame}{Discrete Time Spiking Process}
+%     \uncover<+->{Denoting the marks of $\Pi$ by $\{(y_n,k_n)\}{n\geq 1}\subset(0,1)\times\mc{N}$ and $\Pi_t:=\Pi((0,1)\times\mc{N}\times[0,t])$, the synaptic interactions may be expressed}
+%     \uncover<+->{\begin{align}
+%         \int_{t_m}^{t_{m+1}}\int_{(0,1)\times\mc{N}}\Theta^i(x^h_m,u^i,y)&\Pi(dy\times ds)\notag\\
+%         \uncover<+->{&=\1{\Pi_{t_{m+1}}-\Pi_{t_m}\geq 1}\left(\sum_{\ell=\Pi_{t_m}+1}^{\Pi_{t_{m+1}}}\sum_{j\in\mc{N}}u^i_jC^i_j(x^{i,h}_{t_m})\1{y_\ell\leq \phi^j(x^{j,h}_{t_m})}\1{j=k_\ell}\right)\notag{}}\\
+%         \uncover<+->{&=:\sum_{j\in\mc{N}}u^i_jC^i_j(x^{i,h}_{t_m})Z^{j,h}_{t_m}\notag{}}
+%     \end{align}}
+%     \uncover<+->{with the \textbf{discrete time spiking} $Z^{j,h}_{t_m}=\int_{\Delta_t}\int_{(0,1)}\1{y\leq\frac{N}{\lambda}\phi^j(x^{j,h}_{t_m})}\Pi^j(dy\times dt)$, where}
+%     \uncover<+->{\begin{align*}
+%         \E\left(\int_{t_m}^{t_{m+1}}\int_{(0,1)}\1{y\leq\frac{N}{\lambda}\phi^j(x^{j,h}_{t_m})}\Pi^j(dy\times dt)\right)
+%         \uncover<+->{&=\E\left(\int_{t_m}^{t_{m+1}}\int_{(0,1)}\1{y\leq\frac{N}{\lambda}\phi^j(x^{j,h}_{t_m})}\frac{\lambda}{N}dyds\right)}\\
+%         \uncover<+->{&=\phi^j(x^{j,h}_{t_m})h}
+%     \end{align*}}
+%     \uncover<+->{so spiking is conditionally Poisson with rate $\phi^j(x^{j,h}_{t_m})h$.}
+% \end{frame}
 
 \section{Stochastic Team Formulation}
 
-\begin{frame}{Finally: Stochastic Team Formulation of Neural Networks}
+\begin{frame}{Stochastic Team Formulation of Neural Networks}
     \uncover<+->{\underline{\textbf{State Space/Dynamics}}:} \uncover<+->{Each $\{x^i_n\}_{n\geq 1}$ is a $\mbb{X}^i:=\mbb{R}^d$-valued trajectory, network state space $\mbb{X}:=\prod_{i\in\mc{N}}\mbb{X}^i$.}
     \begin{align*}
         \uncover<+->{x^i_{n+1}=F^i(x_n,u^i_n,w^i_n,\Pi_n)=f^i(x^i_n,w^i_n)+\sum_{j\in\mc{N}}u^i_{j,n}C^i_j(x^i_n)\int_{\Delta_n}\int_{(0,1)}\1{y\leq\frac{N}{\lambda}\phi^j(x^j_n)}\Pi_n(dy\times ds)}
@@ -556,39 +459,169 @@
     \uncover<+->{\begin{block}{\textbf{Definition} [Empirical Measures]}
        For a state $x\in\mbb{X}$, its empirical measure $\mu[x]\in\mc{P}(\mbb{X})$ is given by $\mu[x](dx)=\frac{1}{N}\sum_{j\in\mc{N}}\delta_{x^j}(dx)$.
     \end{block}}
-    \uncover<+->{In accordance with the {\bf principle hypothesis}, two information structures are of interest:}
+    \uncover<+->{Two information structures are of interest:}
     \begin{align*}
-        \uncover<+->{\mc{I}^i_t&:=\begin{cases}
+        \uncover<+->{\mc{I}^i_n&:=\begin{cases}
             \{x^i_{0:n},u^i_{0:n-1}\},\quad&\text{$n\geq 1$}\\
             \{x^i_0\},\quad&\text{$n=0$}
     \end{cases},\quad i\in\mc{N}}\\
         \uncover<+->{\mc{I}^{i,MF}_n&:=\begin{cases}
-            \{x^i_{0:n},u^i_{0:n-1},\mu[v_n]\},\quad&\text{$t\geq 1$}\\
-            \{x^i_0,\mu[v_0]\},\quad&\text{$t=0$}
+            \{x^i_{0:n},u^i_{0:n-1},\mu_{0:n}\},\quad&\text{$n\geq 1$}\\
+            \{x^i_0,\mu_0\},\quad&\text{$n=0$}
         \end{cases},\quad i\in\mc{N}.}
     \end{align*}
     \uncover<+->{In particular, only the voltages are broadcast via the mean field.}\\[5pt]
     \uncover<+->{\underline{\textbf{Cost Function}}}\\[5pt]
-    \uncover<+->{For the purpose of steering the spike/mean field process, consider the class of stagewise costs given by}
+    \uncover<+->{In connection with the work of Sanjari et al. (2024), we could consider the class of \textbf{exchangeable} stagewise costs given by}
     \begin{align*}
-        \uncover<+->{\boldsymbol{c}_n(x_n,u_n,\Pi_n)&:=\frac{1}{N}\sum_{j\in\mc{N}}c_n(x^j_n,u^j_n,\mu[v_n],\Pi_n)}\\
-        \uncover<+->{c_n(x^j_n,u^j_n,\mu[v_n],\Pi_n)&:=\tilde{c}\left(Z^j_n,u^j_n,d(\nu_n,\mu[v_n])\right),\quad j\in\mc{N}}
+        \uncover<+->{\boldsymbol{c}_n(x_n,u_n,\Pi_n)&:=\frac{1}{N}\sum_{j\in\mc{N}}c_n(x^j_n,u^j_n,\mu[v_n],\Pi_n)}.
     \end{align*}
-    \uncover<+->{and $d:\mc{P}(\mbb{V})\times\mc{P}(\mbb{V})\rightarrow\mbb{R}_+$ metrizes the topology of weak convergence.}
+    \uncover<+->{\textbf{Note:} both of these are chosen to establish a connection with Sanjari et al. (2023, 2024) where conditions for the optimality of decentralized policies in large teams were established.}
 \end{frame}
 
-\begin{frame}{Stochastic Team Formulation of Neural Networks}
-    \uncover<+->{For an initial treatment, we consider the finite horizon cost:}
-    \begin{align*}
-        \uncover<+->{J_T^N(x_0,\gamma):=\E^\gamma_{x_0}\left(\sum_{t=0}^{T-1}\boldsymbol{c}_t(x_t,u_t,\Pi_t)+\boldsymbol{c}_T(x_T,\Pi_T)\right),\quad J^{N\ast}_T(x_0)=\inf_{\gamma\in\Gamma}J^N_T(x_0,\gamma).}
-    \end{align*}
-    \uncover<+->{We conceptualize these cost criteria as being "imposed" by other brain networks by some unknown mechanism. Several questions emerge:}
-    \begin{itemize}[<+->]
-        \item How does the optimal network $u^{N\ast}$ scale with $N$?
-        \item What is the structure of the optimal policy as $N\rightarrow\infty$? 
-    \end{itemize}
+\begin{frame}{Decentralized Optimal Control in Large Exchangeable Teams}
+    \uncover<+->{\underline{\textbf{(Idealized) Problem Setup}}}\\[5pt]
+    \uncover<+->{- Suppose local state $\mbb{X}$ and action $\mbb{U}$ spaces are \textbf{compact}.}\\[5pt]
+    \uncover<+->{- Local state dynamics are \textbf{symmetric} and for $i\in\mc{N}$ are of the form:}
+    \uncover<+->{
+        \begin{align*}
+            x^i_{n+1}=f(x^i_n,u^i_n,\mu^N_n,z^i_n),\quad\uncover<+->{\text{where $f(\cdot,\cdot,\cdot,z):\mbb{X}\times\mbb{U}\times\mc{P}(\mbb{X})\rightarrow\mbb{X}$ is \textbf{jointly continuous} $\forall z$.}}
+        \end{align*}
+    }
+    \uncover<+->{- We seek to infimize a discounted, \textbf{exchangeable}, \textbf{finite population} cost criterion:}
+    \uncover<+->{
+        \begin{align*}
+            J^N_T(\gamma)=\mbb{E}^\gamma(\frac{1}{N}\sum_{i=1}^N\sum_{t=0}^{T-1}\beta^tc(x^i_t,u^i_t,\mu^N_t)),\quad\uncover<+->{\text{$c(\cdot,\cdot,\cdot):\mbb{X}\times\mbb{U}\times\mc{P}(\mbb{X})\rightarrow\mbb{X}$ \textbf{bounded}, \textbf{continuous}.}}
+        \end{align*}
+    }
+    \uncover<+->{- Or a \textbf{infinite population} analogue:}
+    \uncover<+->{
+        \begin{align*}
+            J^\infty_T(\gamma)=\limsup_{N\rightarrow\infty} J^N_T(\gamma)
+        \end{align*}
+    }
 \end{frame}
 
+\begin{frame}{Decentralized Optimal Control in Large Exchangeable Teams}
+        \uncover<+->{\begin{alertblock}{\textbf{Theorem 10} [Sanjari et al. (2024)]}
+        There exists a sequence of policies $\{\gamma^{N,\ast}\}_{N\geq 1}$ and $\{\varepsilon_N\}_{N\geq 1}\subset\mbb{R}_+$ with $\varepsilon_N\overset{N\rightarrow\infty}{\rightarrow}0$ so that
+        \uncover<+->{
+        \begin{align*}
+            J^N_T(\gamma^{N,\ast})\leq\inf_{\gamma\in\Gamma}J^N_T(\gamma)+\varepsilon_N,\quad N\geq 1
+        \end{align*}}
+        \uncover<+->{where $\Gamma$ is the set of admissable team policies, and $\gamma^{N,\ast}=(\gamma^{N,\ast}_t)_{t=0}^{T-1}$ is randomized, decentralized, and symmetric in the sense that}
+        \uncover<+->{
+            \begin{align*}
+                \gamma^{N,\ast}_t(u_t\in\cdot|x_{0:t},u_{0:t-1})=\prod_{i\in\mc{N}}\widetilde{\gamma}^{N,\ast}_t(u^i_t\in\cdot|\mc{I}^{i,MF}_t).
+            \end{align*}
+        }
+    \end{alertblock}}
+    \uncover<+->{}
+    \uncover<+->{Could be of tremendous value in theoretical neuroscience, but at what spatial scale might we expect this to be hold?}
+\end{frame}
+
+\appendix
+\backupbegin
+\begin{frame}{Point Process Theory}{Br\'emaud (1981), Karr (1991)}
+    \uncover<2->{\begin{block}{\textbf{Definition} [Point Process]}
+        Let $S$ be a locally compact Polish space, and $\mc{M}(S)$ the set of Radon measures on $S$. A random measure $Z:(\Omega,\mc{F},P)\rightarrow \mc{M}(S)$ is a $S$-point process
+        if $Z(A)\in\mbb{Z}_+$ for all relatively compact $A\in\mc{B}(S)$ and $Z(S)=\infty$ $P$-a.s. $Z$ is called {\bf regular} if $Z(\{x\})\leq 1$ for $x\in S$.
+    \end{block}}
+    \uncover<3->{On $(\mbb{R}_+,\mc{B}(\mbb{R}_+))$, $Z$ can be represented by a sequence $\{T_k\}_{k\geq 0}$ as $Z=\sum_{k\geq 1}\delta_{T_k}$, where}
+    \begin{align*}
+        \uncover<4->{T_0=0,\quad T_{k}=\inf(t\geq 0:Z_t:=Z([0,t])=k),\quad k\geq 1.}
+    \end{align*}
+    \vspace{-0.5cm}
+    \uncover<5->{\begin{block}{\textbf{Definition} [Stochastic Intensity Process]}
+        A nonnegative, $\mc{F}_t$-predictable process $\lambda_t$ with $\int_0^t\lambda_sds<\infty$ a.s. for any $t\geq 0$ is the stochastic intensity of a point process $Z$ on $\mbb{R}_+$ iff
+        for any $\mc{F}_t$-predictable $C_t$:
+        \begin{align*}
+            \uncover<6->{\E\left(\int_0^\infty C_sZ(ds)\right)=\E\left(\int_0^\infty C_s\lambda_sds\right).}
+        \end{align*}
+    \end{block}}
+    \uncover<7->{Note: integration here is in the Riemann-Stieltjes sense: $\int_0^t C_sZ(ds)=\sum_{k\geq 1}C_{T_k}\1{T_k\leq t}$.}
+\end{frame}
+
+\begin{frame}{Point Process Theory ({\it continued})}{Br\'emaud (1981), Karr (1991)}
+    \uncover<+->{\begin{alertblock}{{\bf Theorem 1} [Br\'emaud (1981)]}
+        If a point process $Z_t$ admits $\mc{F}_t$-intensity $\lambda_t$, then $Z_t$ is locally finite and $Z_t-\int_0^t\lambda_sds$ is a $\mc{F}_t$-local martingale.
+    \end{alertblock}}
+    \uncover<+->{Probabilistic neuron models correspond to this abstract notion of stochastic intensity. Let $\{S_n\}_{n\geq 1}$ be a localizing sequence, and $h>0$:}
+    \begin{align*}
+       \uncover<+->{\lim_{n\rightarrow\infty}\E\left(\int_{t\wedge S_n}^{t+h\wedge S_n}Z(ds)\bigg|\mc{F}_t\right)&=\lim_{n\rightarrow\infty}\E\left(\int_{t\wedge S_n}^{t+h\wedge S_n}\lambda_sds\bigg|\mc{F}_t\right)}\\
+       \uncover<+->{&\Rightarrow\quad\E\left(Z_{t+h}-Z_t|\mc{F}_t\right)=\E\left(\int_t^{t+h}\lambda_sds\bigg|\mc{F}_t\right)}
+    \end{align*}
+    \uncover<+->{whereby the dominated convergence and Lebesgue differentiation theorems:} 
+    \begin{align*}
+        \uncover<+->{\lim_{h\rightarrow 0^+}\frac{1}{h}\E\left(Z_{t+h}-Z_t|\mc{F}_t\right)=\E\left(\lim_{h\rightarrow 0^+}\frac{1}{h}\int_t^{t+h}\lambda_sds\bigg|\mc{F}_t\right)=\lambda_t.}
+    \end{align*}
+    \uncover<+->{$\lambda_t$ can be viewed as a dynamical law governing a stochastic spiking mechanism, and we wish to prescribe particular $\lambda_t$ to individual neurons.}\\[5pt]
+    \uncover<+->{This is accomplished via {\bf thinning}:}
+    \begin{align*}
+        \uncover<+->{Z(A):=\int_{A}\int_{\mbb{R}_+}\1{y\in[0,\lambda_s]}\Pi(dy\times ds),\quad \Pi\;\text{is standard Poisson on $\mbb{R}_+\times\mbb{R}_+$.}}
+    \end{align*}
+\end{frame}
+
+\begin{frame}{Marked Point Processes}
+    \uncover<+->{\begin{block}{\textbf{Definition} [Marked Point Process (MPP)]}
+        Suppose that to a point process $(T_n)_{n\geq 0}$ is associated a
+        sequence of $(Y,\mc{Y})$-valued random variables $(Y_n)_{n\geq 0}$. Then
+        $\{(T_n,Y_n)\}_{n\geq 0}$ is called a MPP with
+        marks $(Y_n)_{n\geq 0}$ and {\it mark space} $Y$.
+    \end{block}}
+    \uncover<+->{Predictable $\sigma$-algebra: $\mc{P}(\{\mc{F}_t\}_{t\geq 0}):=\sigma((t,\infty)\times A:t\in\mbb{R}_+,\,A\in\mc{F}_t)$.}\\[5pt]
+    \uncover<+->{Marked predictable $\sigma$-algebra: $\tilde{\mc{P}}(\{\mc{F}_t\}_{t\geq 0}):=\mc{P}(\mc{F}_t)\otimes\mc{Y}$.}\\[5pt]
+    \uncover<+->{\textbf{Integration} For any $(t,\omega,y)\mapsto C(t,\omega,y)$ is $\tilde{\mc{P}}(\mc{F}_t)$-measurable and $Z$ a $Y$-MPP, $E\in \mc{Y}$}
+    \begin{align*}
+        \uncover<+->{\int_0^t\int_EC(s,\omega,y)Z(ds\times dy):=\sum_{n\geq 1}C(T_n,\omega,Y_n)\1{T_n\leq t}\1{Y_n\in E}}
+    \end{align*}
+    \vspace{-0.5cm}
+    \uncover<+->{\begin{block}{\textbf{Definition} [Intensity Kernels]}
+        With $Z$ a $Y$-MPP adapted to $\mc{F}_t$, if $\forall A\in\mc{Y}$ the point process $Z_t(\omega,A)$ admits $\mc{F}_t$-predictable intensity $\lambda_t(\omega,A)$,
+        then $Z$ admits the intensity kernel $\lambda_t(\omega, dy)$.
+    \end{block}}
+    \uncover<+->{\begin{alertblock}{\textbf{Theorem 2} [Br\'emaud (1981)]}
+        If $C:\mbb{R}_+\times\Omega\times Y\rightarrow\mbb{R}_+$ is $\tilde{\mc{P}}(\mc{F}_t)$-measurable and $Z$ has intensity kernel $\lambda_t(dy)$, then
+        \begin{align*}
+            \E\left(\int_0^\infty\int_Y C(s,y)Z(ds\times dy)\right)=\E\left(\int_0^\infty\int_Y C(s,y)\lambda_s(dy)ds\right).
+        \end{align*}
+    \end{alertblock}}
+\end{frame}
+
+\begin{frame}{Martingale Characterization of Intensities}
+    \uncover<+->{\begin{alertblock}{\textbf{Theorem 3} [Jacod (1975), Br\'emaud (1981)]}
+        \uncover<+->{If for $t\geq 0$, $\int_0^t\int_Y|C(s,y)|\lambda_s(dy)ds<\infty$ $P$-a.s., then}
+        \begin{align*}
+            \uncover<+->{X_t:=\int_0^t\int_YC(s,y)[Z(ds\times dy)-\lambda_s(dy)ds],\quad t\geq 0}
+        \end{align*}
+        \uncover<+->{is a local martingale. If $\E(\int_0^t\int_Y|C(s,y)|\lambda_s(dy)ds)<\infty$, then $X_t$ is a martingale.}
+    \end{alertblock}}
+    \uncover<+->{The converse is true as well, leading to a martingale characterization of intensity processes:}
+    \uncover<+->{\begin{alertblock}{\textbf{Theorem 4} [{Br\'emaud (1981)}]}
+        Let $Z$ be a point process, $\lambda_t$ a nonnegative process, both adapted to $\mc{F}_t$. If $Z_t-\int_0^t\lambda_sds$ is a local martingale,
+        then $\lambda_t$ is the intensity of $Z$. 
+    \end{alertblock}}
+\end{frame}
+
+\begin{frame}
+    \textbf{Proof}. Apply the monotone class theorem. For a sequence of localizing times $\{S_n\}_{n\geq 1}$,
+    \begin{align*}
+        \uncover<+->{&\E\left(Z_{t\wedge S_n}-\int_0^{t\wedge S_n}\lambda_udu\bigg|\mc{F}_s\right)=Z_{s\wedge S_n}-\int_0^{s\wedge S_n}\lambda_udu}\\
+        \uncover<+->{\Rightarrow\qquad&\E\left(\int_{s\wedge S_n}^{t\wedge S_n}Z(du)\bigg|\mc{F}_s\right)=\E\left(\int_{s\wedge S_n}^{t\wedge S_n}\lambda_u du\bigg|\mc{F}_s\right)}\\
+        \uncover<+->{\Rightarrow\qquad&\E\left(\int_0^{t\wedge S_n}\1{A}\1{u\in(s,\infty)}Z(du)\right)=\E\left(\int_0^{t\wedge S_n}\1{A}\1{u\in(s,\infty)}\lambda_udu\right)}
+    \end{align*}
+    \uncover<+->{which holds for any $A\in\mc{F}_s$. So the class of nonnegative processes for which
+    \[\E\left(\int_0^{t\wedge S_n}C_s Z(ds)\right)=\E\left(\int_0^{t\wedge S_n}C_s\lambda_sds\right)\]
+    holds includes indicators over
+    \[\mc{K}=\{(s,\infty)\times A:0\leq s\leq t,\,A\in\mc{F}_s\}\]}
+    \uncover<+->{generating $\mc{P}(\mc{F}_t)$. This class is closed under addition/scalar multiplication and pointwise bounded limits, whereby successively applying the monotone convergence theorem:}
+    \begin{align*}
+        \uncover<+->{\E\left(\int_0^{t\wedge S_n}C_s Z(ds)\right)=\E\left(\int_0^{t\wedge S_n}C_s\lambda_sds\right)\quad\Rightarrow\quad\E\left(\int_0^\infty C_sZ(ds)\right)=\E\left(\int_0^\infty C_s\lambda_sds\right).\tag*{$\qed$}}
+    \end{align*}
+    \uncover<+->{\textbf{Note}: An extremely similar procedure can be used to prove Theorem 2.}
+\end{frame}
+
+\backupend
 % \begin{frame}
 %     MF-MDP, B\"auerle's mean field result
 %     Jabin's model + mean field result.
