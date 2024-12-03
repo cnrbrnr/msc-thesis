@@ -290,7 +290,7 @@
 % ====== RELOCATED POINT PROCESS THEORY TO THE END
 
 \begin{frame}{Spatial Thinning Theorem}
-    \uncover<+->{\begin{alertblock}{\textbf{Theorem 5} Spatial Thinning [Chevallier et al., 2015, theorem B.11]}
+    \uncover<+->{\begin{alertblock}{\textbf{Theorem} Spatial Thinning [Chevallier et al., 2015, theorem B.11]}
         \uncover<+->{Let $\Pi$ be a $\mc{F}_t$-adapted standard Poisson process on $\mbb{R}_+^2$. If $\lambda_t$ is nonnegative, $\mc{F}_t$-predictable with $\int_0^t\lambda_s(\omega)ds<K_t(\omega)$,
         with $\E(K_t)<\infty$ for all $t\geq 0$, then}
         \begin{align*}
@@ -308,7 +308,7 @@
 \end{frame}
 
 \begin{frame}{Soft Integrate-and-Fire Network}
-    \uncover<+->{\begin{alertblock}{\textbf{Theorem 6} MPP-Based Thinning [Glasserman \& Merener (2003)]}
+    \uncover<+->{\begin{alertblock}{\textbf{Theorem} MPP-Based Thinning [Glasserman \& Merener (2003)]}
         \uncover<+->{Let $\Pi$ be a MPP with mark space $(0,1)$ and intensity kernel $\lambda_t(dt)=\lambda dy$, where $\lambda>0$. For a $\mc{F}_t$-adapted process $X_t$, if $0\leq\phi(x)<\lambda$ for all $x\in\mbb{X}$ then}
         \begin{align*}
             \uncover<+->{Z_t:=\int_0^t\int_{(0,1)}\1{y<\frac{1}{\lambda}\phi(x_{s-})}\Pi(dy\times ds)}
@@ -341,7 +341,7 @@
     \end{align*}
     \uncover<+->{where, for example, $\Theta^i(x,u^i,y)=\sum_{j\in\mc{N}}u^i_jC^i_j(x^i)\1{y\leq \phi^j(x^j)}\1{k=j}$.}\\[5pt]
     \uncover<+->{This new class of models is a superset of nonlinear Hawkes (self-exciting) point processes, and a stochastic realization of IF methods in the following sense.}
-    \uncover<+->{\begin{alertblock}{\textbf{Theorem 7} Stochastic Realization of Thresholds}
+    \uncover<+->{\begin{alertblock}{\textbf{Theorem} Stochastic Realization of Thresholds}
         Any nonlinear Hawkes network can be realized as a SIF network. Further, fixing thresholds $(\vartheta^i)_{i\in\mc{N}}$, and approximation bounds $\varepsilon>0$, and $\delta>\tilde{\delta}>0$, 
         there exist intensity processes $\lambda^i_t$, $i\in\mc{N}$ so that $P(Z^i(T,T+\tilde{\delta}]=1)>1-\varepsilon$ whenever $T$ is a $\vartheta^i$-crossing.
     \end{alertblock}}
@@ -377,7 +377,7 @@
 \end{frame}
 
 \begin{frame}{Strong Solutions of the Jump-Diffusion}
-    \uncover<+->{\begin{alertblock}{\textbf{Theorem 8} Existence/Uniqueness of a Strong Solution [Ikeda \& Watanabe (1989) theorem 9.1]}
+    \uncover<+->{\begin{alertblock}{\textbf{Theorem} Existence/Uniqueness of a Strong Solution [Ikeda \& Watanabe (1989) theorem 9.1]}
         \uncover<+->{Consider the jump-diffusion dynamics
         \begin{align*}
             dX_t=b(X_t)dt+\sigma(X_t)dB_t+\int_Yq(X_{t-},y)\Pi(dy\times dt)\tag{$\ast$}}
@@ -414,8 +414,8 @@
     \end{align*}
     \uncover<3->{where we have taken $\sigma^i(x)=\sigma^i>0$ for all $x$ and $w^i_m$ are i.i.d. standard Gaussian.}
     \vspace{-0.1cm}
-    \uncover<4->{\begin{alertblock}{\textbf{Theorem 9} [Bruti-Liberati \& Platen (2005)]}
-        \uncover<5->{Suppose $\{x^h_{m}\}_{m=0}^{M_T}$ is as above for some $h\in(0,1)$ and the jump-diffusion satisfies the Lipschitz and growth constraints of theorem 3.} \uncover<6->{If
+    \uncover<4->{\begin{alertblock}{\textbf{Theorem} [Bruti-Liberati \& Platen (2005)]}
+        \uncover<5->{Suppose $\{x^h_{m}\}_{m=0}^{M_T}$ is as above for some $h\in(0,1)$ and the jump-diffusion satisfies the Lipschitz and growth constraints of theorem 3 (see appendix).} \uncover<6->{If
         \begin{align*}
             \E(\|x^h_0\|^2)<\infty,\quad\text{and}\quad\E(\|X_0-x^h_0\|^2)\leq Ch
         \end{align*}}
@@ -503,13 +503,13 @@
 \end{frame}
 
 \begin{frame}{Decentralized Optimal Control in Large Exchangeable Teams}
-        \uncover<+->{\begin{alertblock}{\textbf{Theorem 10} [Sanjari et al. (2024)]}
+        \uncover<+->{\begin{alertblock}{\textbf{Theorem} [Sanjari et al. (2024)]}
         There exists a sequence of policies $\{\gamma^{N,\ast}\}_{N\geq 1}$ and $\{\varepsilon_N\}_{N\geq 1}\subset\mbb{R}_+$ with $\varepsilon_N\overset{N\rightarrow\infty}{\rightarrow}0$ so that
         \uncover<+->{
         \begin{align*}
             J^N_T(\gamma^{N,\ast})\leq\inf_{\gamma\in\Gamma}J^N_T(\gamma)+\varepsilon_N,\quad N\geq 1
         \end{align*}}
-        \uncover<+->{where $\Gamma$ is the set of admissable team policies, and $\gamma^{N,\ast}=(\gamma^{N,\ast}_t)_{t=0}^{T-1}$ is randomized, decentralized, and symmetric in the sense that}
+        \uncover<+->{where $\Gamma$ is the set of admissable team policies, and $\gamma^{N,\ast}=(\gamma^{N,\ast}_t)_{t=0}^{T-1}$ is \textbf{randomized}, \textbf{decentralized}, and \textbf{symmetric} in the sense that}
         \uncover<+->{
             \begin{align*}
                 \gamma^{N,\ast}_t(u_t\in\cdot|x_{0:t},u_{0:t-1})=\prod_{i\in\mc{N}}\widetilde{\gamma}^{N,\ast}_t(u^i_t\in\cdot|\mc{I}^{i,MF}_t).
@@ -517,7 +517,30 @@
         }
     \end{alertblock}}
     \uncover<+->{}
-    \uncover<+->{Could be of tremendous value in theoretical neuroscience, but at what spatial scale might we expect this to be hold?}
+    \uncover<+->{Could be of tremendous value in theoretical neuroscience...}\\[5pt]
+    \uncover<+->{But our network does not meet the assumptions, most critically \textbf{dynamical symmetry}.}\\[5pt]
+    \uncover<+->{Can we expect symmetry to hold at a coarser spatial resolution?}
+\end{frame}
+
+\begin{frame}{Idea: Exchangeable Team-of-Teams Model of Neocortex}
+    \begin{columns}
+        \begin{column}{0.65\textwidth}
+            \begin{center}
+                \uncover<+->{\includegraphics[width=\textwidth]{ToT1.png}}
+            \end{center}
+        \end{column}
+        \begin{column}{0.35\textwidth}
+            \begin{center}
+                \uncover<+->{\includegraphics[width=0.8\textwidth]{tot2.png}}
+            \end{center}
+        \end{column}
+    \end{columns}
+    \vspace{10pt}
+    \uncover<+->{- Each column (subteam) has a controlled network topology}\\[5pt]
+    \uncover<+->{- Each subteam has identical composition $\Rightarrow$ \textbf{interteam dynamical symmetry}}\\[5pt]
+    \uncover<+->{\underline{\textbf{Questions:}}}\\[5pt]
+    \uncover<+->{- Can we find a near optimal, decentralized and symmetry policy for the team of teams?}\\[5pt]
+    \uncover<+->{- Does this lead to more practical (or biologically realistic) learning algorithms?}
 \end{frame}
 
 \appendix
