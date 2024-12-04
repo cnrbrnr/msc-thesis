@@ -16,7 +16,7 @@
 \setbeamercolor{block title}{fg=black,bg=black!5!white}   
 \setbeamercolor{block title alerted}{bg=black!5!white}   
 
-\author[Connor Braun]{Connor Braun}
+\author[Connor Braun]{Connor Braun\\[5pt]{\small under the joint supervision of}\\[5pt]Serdar Y\"uksel and Gunnar Blohm}
 \institute[]{Queen's University\\Dept. Mathematics \& Statistics}
 
 \AtBeginSubsection[]
@@ -543,8 +543,94 @@
     \uncover<+->{- Does this lead to more practical (or biologically realistic) learning algorithms?}
 \end{frame}
 
+% =====================================================================================================================
+
 \appendix
 \backupbegin
+
+\begin{frame}{Acknowledgements}
+    Sincere thanks to my
+    \begin{center}
+        {\Large\textbf{Supervisors:}}\\[5pt]
+        Gunnar Blohm\\[5pt]
+        Serdar Y\"uksel\\[5pt]
+        \vspace{10pt}
+        {\Large\textbf{Examining Committee:}}\\[5pt]
+        Troy Day\\[5pt]
+        Sina Sanjari\\
+        \vspace{10pt}
+        and\\
+        \vspace{10pt}
+        {\Large\textbf{Funding Agencies:}}
+    \end{center}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=0.65\textwidth]{nserc-logo.jpg}
+            \end{center}
+            \begin{center}
+                (CGS-M)
+            \end{center}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=0.4\textwidth]{osap-logo.png}
+            \end{center}
+            \begin{center}
+                (QE-II)
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Bibliography (1 of 2)}
+    \begin{enumerate}[1.]
+        \item P. Br\'emaud and L. Massouli\'e. Stability of nonlinear hawkes processes. The Annals of
+        Probability, 24(3), July 1996.
+        \item N. Bruti-Liberati and E. Platen. On the strong approximation of jump-diffusion processes.
+        Research Paper Series, 2005.
+        \item A. Buonocore, L. Caputo, G. D'Onofrio, and E. Pirozzi. Closed-form solutions for the
+        first-passage-time problem and neuronal modeling. Ricerche di Matematica, 64(2):421-439,
+        Nov. 2015.
+        \item T. B. Burghi and R. Sepulchre. Adaptive observers for biophysical neuronal circuits. IEEE
+        Transactions on Automatic Control, page 1-14, 2023. arXiv:2111.02176.
+        \item J. Chevallier, M. J. Caceres, M. Doumic, and P. Reynaud-Bouret. Microscopic approach of a
+        time elapsed neural model. pre-print, June 2015. arXiv:1506.02361.
+        \item A. A. Faisal, L. P. J. Selen, and D. M. Wolpert. Noise in the nervous system. Nature Reviews
+        Neuroscience, 9(4):292-303, Apr. 2008.
+        \item M. T. Giraudo and L. Sacerdote. Jump-diffusion processes as models for neuronal activity.
+        Biosystems, 40(1):75-82, Jan. 1997.
+        \item P. Glasserman and N. Merener. Numerical solution of jump-diffusion libor market models.
+        Finance and Stochastics, 7(1):1-27, Jan. 2003.
+        \item A. G. Hawkes and D. Oakes. A cluster process representation of a self-exciting process.
+        Journal of Applied Probability, 11(3):493-503, Sept. 1974.
+    \end{enumerate}
+\end{frame}
+\begin{frame}{Bibliography (2 of 2)}
+    \begin{enumerate}[1.]
+        \item A. L. Hodgkin and A. F. Huxley. A quantitative description of membrane current and its
+        application to conduction and excitation in nerve. The Journal of Physiology, 117(4):500-544,
+        Aug. 1952.
+        \item N. Ikeda and S. Watanabe. Stochastic Differential Equations and Diffusion Processes. Ko-
+        dansha ltd., Tokyo, Japan, 1989.
+        \item P.-E. Jabin, V. Schmutz, and D. Zhou. Non-exchangeable networks of integrate-and-fire
+        neurons: spatially-extended mean-field limit of the empirical measure. preprint, Sept. 2024.
+        arXiv:2409.06325.
+        \item P. Jahn, R. W. Berg, J. Hounsgaard, and S. Ditlevsen. Motoneuron membrane potentials
+        follow a time inhomogeneous jump diffusion process. Journal of Computational Neuroscience,
+        31(3):563-579, Nov. 2011.
+        \item C. Koch, O. Bernander, and R. J. Douglas. Do neurons have a voltage or a current threshold
+        for action potential initiation? Journal of Computational Neuroscience, 2:63-82, mar 1995.
+        \item H. E. Plesser and W. Gerstner. Noise in integrate-and-fire neurons: From stochastic input to
+        escape rates. Neural Computation, 12(2):367-384, Feb. 2000.
+        \item L. Ribar and R. Sepulchre. Neuromodulation of neuromorphic circuits. IEEE Transactions
+        on Circuits and Systems I: Regular Papers, 66(8):3028-3040, Aug. 2019. arXiv:1805.05696.
+        \item S. Sanjari, N. Saldi, and S. Y\"uksel. Optimality of decentralized symmetric policies for
+        stochastic teams with mean-field information sharing. (arXiv:2404.04957), Apr. 2024.
+        \item R. Sepulchre. Spiking control systems. Proceedings of the IEEE, 110(5):577-589, May 2022.
+    \end{enumerate}
+\end{frame}
+
 \begin{frame}{Point Process Theory}{Br\'emaud (1981), Karr (1991)}
     \uncover<2->{\begin{block}{\textbf{Definition} [Point Process]}
         Let $S$ be a locally compact Polish space, and $\mc{M}(S)$ the set of Radon measures on $S$. A random measure $Z:(\Omega,\mc{F},P)\rightarrow \mc{M}(S)$ is a $S$-point process
@@ -645,8 +731,5 @@
 \end{frame}
 
 \backupend
-% \begin{frame}
-%     MF-MDP, B\"auerle's mean field result
-%     Jabin's model + mean field result.
-% \end{frame}
+
 \end{document}
